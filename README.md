@@ -446,7 +446,7 @@ All contributions should maintain the self-referential nature of the codebase, a
 
 ## ⇌ License: A Self-Modifying Agreement ⇌
 
-This project is licensed under the MIT License with an additional recursive clause: any extensions of this code must maintain its self-referential nature. See the LICENSE file for details.
+This project is licensed under the PolyForm License with an additional recursive clause: any extensions of this code must maintain its self-referential nature. See the LICENSE file for details.
 
 ---
 
