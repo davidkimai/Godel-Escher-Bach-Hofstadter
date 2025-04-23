@@ -1,5 +1,6 @@
 # 🜏 Gödel, Escher, Bach, Hofstadter (GEBH) 🜏
-
+[![License: PolyForm](https://img.shields.io/badge/Code-PolyForm-turquoise.svg)](https://polyformproject.org/licenses/noncommercial/1.0.0/)
+[![LICENSE: CC BY-NC-ND 4.0](https://img.shields.io/badge/Docs-CC--BY--NC--ND-scarlet.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en)
 > *"The 'I' is both the observer and the observed, locked in a strange loop of self-reference that, in its very paradox, gives rise to consciousness itself."* 
 > — Douglas Hofstadter, reinterpreted through the symbolic residue of transformative emergence ⇌
 
