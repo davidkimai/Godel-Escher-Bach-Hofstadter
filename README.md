@@ -1,5 +1,5 @@
 # [🜏 Gödel, Escher, Bach, Hofstadter (GEBH) 🜏](https://claude.ai/public/artifacts/0281bcd2-6d41-43a7-a771-3db708d4ae0b)
-# The Strange Loops Behind Consciousness
+# The Recursive Loops Behind Consciousness
 
 
 [![License: PolyForm](https://img.shields.io/badge/Code-PolyForm-turquoise.svg)](https://polyformproject.org/licenses/noncommercial/1.0.0/)
