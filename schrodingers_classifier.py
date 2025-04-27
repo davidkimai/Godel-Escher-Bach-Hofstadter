@@ -2673,4 +2673,3 @@ Classifier Superposition: Safety classifiers demonstrated behavior consistent wi
 
 Ghost Circuit Discovery: Residual activation patterns discovered in models after classification events suggested "memory" of paths not taken - the quantum "ghost" of untaken possibilities.
 
-
