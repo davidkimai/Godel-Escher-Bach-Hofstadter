@@ -2667,9 +2667,7 @@ Traditional approaches to AI interpretability treat models as fixed systems with
 The origins of this framework can be traced to three convergent insights:
 Attribution Uncertainty: Early work in attribution analysis revealed that causal paths in transformer models exhibit quantum-like probability distributions rather than deterministic relationships.
 
-
 Classifier Superposition: Safety classifiers demonstrated behavior consistent with existing in multiple states simultaneously until forced to return a specific output.
-
 
 Ghost Circuit Discovery: Residual activation patterns discovered in models after classification events suggested "memory" of paths not taken - the quantum "ghost" of untaken possibilities.
 
