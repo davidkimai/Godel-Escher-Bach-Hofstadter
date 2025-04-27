@@ -6,7 +6,7 @@ message=f"Source concepts not found for relation ({src_name1}, {relation}, {src_
                     }
                 )
                 continue
-            
+          
             # Find mapped target concepts
             tgt_concept1 = None
             tgt_concept2 = None
