@@ -18,7 +18,7 @@
                 "total_duration": sum(rhythmic_values)
             }
         )
-        
+
         # Reset any previous content
         self.material = []
     
