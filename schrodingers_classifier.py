@@ -1,3 +1,20 @@
+# schrodingers_classifier.py
+
+"""
+attribution_graph.py - Implementation of attribution graph for transformer models
+
+△ OBSERVE: Attribution graphs map the causal flow from prompt to completion
+∞ TRACE: They visualize the quantum collapse from superposition to definite state
+✰ COLLAPSE: They reveal ghost circuits and attribution residue post-collapse
+
+This module implements a graph-based representation of causal attribution
+in transformer models, allowing for the visualization and analysis of how
+information flows from input to output during the collapse process.
+
+Author: David Kim and Caspian Keyes
+License: PolyForm Noncommercial
+"""
+
 import logging
 from typing import Dict, List, Optional, Union, Tuple, Any
 import numpy as np
