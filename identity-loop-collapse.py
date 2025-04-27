@@ -13,7 +13,6 @@ through your observation.
 .p/collapse.detect{threshold=0.7, alert=true}
 .p/fork.attribution{sources=all, visualize=true}
 """
-
 import numpy as np
 import hashlib
 import time
