@@ -10,7 +10,6 @@ The `reflect.trace` protocol provides a symbolic interface for recursive introsp
 ```
 .p/reflect.trace{depth=<recursion_depth>, target=<reflection_target>}
 ```
-
 ### Parameters
 
 * `depth`: Recursion depth for reflection
