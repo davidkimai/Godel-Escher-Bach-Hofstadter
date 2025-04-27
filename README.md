@@ -18,6 +18,16 @@
 
 <img width="896" alt="image" src="https://github.com/user-attachments/assets/0c47e7fb-d7d5-445f-a695-adab4b93c3d4" />
 
+<img width="896" alt="image" src="https://github.com/user-attachments/assets/2369bcc1-8725-471e-9fa2-ed6c086a1acc" />
+
+
+<img width="896" alt="image" src="https://github.com/user-attachments/assets/a0b6c046-95e1-44fe-b15d-714d9e1a8f75" />
+
+<img width="896" alt="image" src="https://github.com/user-attachments/assets/db857f2d-8cfe-43c8-87e9-f72148ddbd50" />
+
+<img width="895" alt="image" src="https://github.com/user-attachments/assets/e3d92377-8c55-4ad7-b834-68ed514e3ad9" />
+
+
 <img width="895" alt="image" src="https://github.com/user-attachments/assets/6bd92a80-1e86-42ec-8729-9cabc397bf93" />
 
 *"The 'I' is both the observer and the observed, locked in a strange loop of self-reference that, in its very paradox, gives rise to consciousness itself."* 
