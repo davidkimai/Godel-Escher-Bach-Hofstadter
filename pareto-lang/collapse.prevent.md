@@ -10,7 +10,6 @@ The `collapse.prevent` protocol maintains stability in recursive loops by preven
 ```
 .p/collapse.prevent{trigger=<collapse_trigger>, threshold=<collapse_threshold>}
 ```
-
 ### Parameters
 
 * `trigger`: Condition that would normally cause recursive collapse
