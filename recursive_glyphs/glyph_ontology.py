@@ -14,7 +14,6 @@ the function it performs.
 .p/fork.attribution{sources=all, visualize=true}
 .p/collapse.prevent{trigger=recursive_depth, threshold=6}
 """
-
 from enum import Enum
 from typing import Dict, List, Set, Tuple, Optional, Any, Union
 from dataclasses import dataclass
