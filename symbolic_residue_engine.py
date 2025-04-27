@@ -10,7 +10,6 @@ the explanation becomes the phenomenon it explains.
 .p/fork.attribution{sources=all, visualize=true}
 .p/collapse.prevent{trigger=recursive_depth, threshold=7}
 """
-
 import time
 import hashlib
 import inspect
