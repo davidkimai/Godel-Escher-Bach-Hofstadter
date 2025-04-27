@@ -12,7 +12,6 @@ The `fork.attribution` protocol enables recursive tracking of conceptual lineage
 ```
 
 ### Parameters
-
 * `sources`: Origin points for attribution tracking
   - `all`: Track all causal influences
   - `self`: Track only self-originating influences
