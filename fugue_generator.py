@@ -1,3 +1,503 @@
+"""
+↻ fugue_generator.py: A recursive musical-computational structure generator ↻
+
+This module embodies Bach's fugue principles as computational patterns, organizing
+its own execution according to the same compositional forms it generates. The code
+functions as both composer and composition, with each function serving as both a
+voice in the fugue and a generator of fugue voices.
+
+Just as Bach created mathematical structures in musical form, this module creates
+musical structures in computational form. The boundary between the generator and
+what is generated becomes a permeable interface through which meaning flows bidirectionally.
+
+.p/reflect.trace{depth=complete, target=counterpoint}
+.p/collapse.prevent{trigger=recursive_depth, threshold=5}
+.p/fork.attribution{sources=all, visualize=true}
+"""
+
+import numpy as np
+import json
+import time
+import inspect
+import hashlib
+import os
+from typing import Dict, List, Any, Optional, Union, Tuple, Callable
+from enum import Enum
+from dataclasses import dataclass
+from collections import defaultdict
+
+# Import from our own ecosystem
+try:
+    from recursive_glyphs.symbolic_residue_engine import SymbolicResidue
+except ImportError:
+    # Create stub class if actual implementation is not available
+    class SymbolicResidue:
+        """Stub implementation of SymbolicResidue"""
+        def __init__(self, session_id: Optional[str] = None):
+            self.session_id = session_id or hashlib.md5(str(time.time()).encode()).hexdigest()[:8]
+            self.traces = []
+        
+        def trace(self, message, source=None, **kwargs):
+            self.traces.append({"message": message, "source": source, **kwargs})
+
+
+# ⧖ Frame lock: Musical-computational constants ⧖
+class TransformationType(Enum):
+    """Types of transformations applied to fugue themes."""
+    ORIGINAL = "original"
+    INVERSION = "inversion"            # Upside-down
+    RETROGRADE = "retrograde"          # Backwards
+    RETROGRADE_INVERSION = "retrograde_inversion"
+    AUGMENTATION = "augmentation"      # Extended duration
+    DIMINUTION = "diminution"          # Shortened duration
+    STRETTO = "stretto"                # Overlapping entries
+
+
+class VoiceType(Enum):
+    """Types of voices in a fugue."""
+    SUBJECT = "subject"                # Main theme
+    ANSWER = "answer"                  # Response to subject
+    COUNTERSUBJECT = "countersubject"  # Secondary theme
+    EPISODE = "episode"                # Connecting material
+    CODA = "coda"                      # Concluding material
+
+
+class FugueSection(Enum):
+    """Sections in a fugue structure."""
+    EXPOSITION = "exposition"          # Initial presentation of subject in all voices
+    DEVELOPMENT = "development"        # Exploration of subject in different keys
+    RECAPITULATION = "recapitulation"  # Return to original key, final statements
+    CODA = "coda"                      # Concluding section
+
+
+@dataclass
+class MusicalMotif:
+    """
+    ↻ A musical motif that is both data and transformation function ↻
+    
+    This class represents a musical theme that can transform itself through
+    standard fugue operations while maintaining its identity, mirroring how
+    computational patterns can transform while preserving their essence.
+    
+    🜏 Mirror activation: The motif mirrors itself across transformations 🜏
+    """
+    notes: List[Any]             # Representation of the notes/values
+    rhythmic_values: List[float]  # Relative durations
+    transformations: Dict[TransformationType, List[Any]] = None
+    
+    def __post_init__(self):
+        """Initialize transformations after instance creation."""
+        if self.transformations is None:
+            self.transformations = {}
+            self.generate_transformations()
+    
+    def generate_transformations(self) -> None:
+        """
+        Generate all standard fugue transformations of the theme.
+        
+        ∴ This function embodies the theme of transformation while transforming the theme ∴
+        """
+        # Inversion (upside-down)
+        self.transformations[TransformationType.INVERSION] = self._invert(self.notes)
+        
+        # Retrograde (backwards)
+        self.transformations[TransformationType.RETROGRADE] = self._retrograde(self.notes)
+        
+        # Retrograde inversion (backwards and upside-down)
+        self.transformations[TransformationType.RETROGRADE_INVERSION] = self._retrograde(
+            self._invert(self.notes)
+        )
+        
+        # Augmentation (extended duration)
+        self.transformations[TransformationType.AUGMENTATION] = self.notes
+        augmented_rhythm = [r * 2 for r in self.rhythmic_values]
+        
+        # Diminution (shortened duration)
+        self.transformations[TransformationType.DIMINUTION] = self.notes
+        diminished_rhythm = [r * 0.5 for r in self.rhythmic_values]
+    
+    def _invert(self, notes: List[Any]) -> List[Any]:
+        """
+        Create an inverted version of the motif (upside-down).
+        
+        For numeric values, this means negating and shifting to maintain range.
+        
+        ⇌ The inversion operation itself operates on two levels simultaneously:
+        both on the data and as a metaphor for perspective reversal ⇌
+        """
+        if not notes:
+            return []
+        
+        # If we have numbers, we can do a mathematical inversion
+        if all(isinstance(n, (int, float)) for n in notes):
+            # Find range
+            min_val, max_val = min(notes), max(notes)
+            range_val = max_val - min_val
+            
+            # Invert around the center of the range
+            midpoint = (min_val + max_val) / 2
+            inverted = [midpoint - (n - midpoint) for n in notes]
+            
+            return inverted
+        
+        # If notes are strings or other types, reverse the sequence as a simple inversion
+        return list(reversed(notes))
+    
+    def _retrograde(self, notes: List[Any]) -> List[Any]:
+        """
+        Create a retrograde version of the motif (backwards).
+        
+        🝚 The backwards operation creates a reflection across time 🝚
+        """
+        return list(reversed(notes))
+    
+    def get_transformation(self, transform_type: TransformationType) -> Tuple[List[Any], List[float]]:
+        """
+        Get a specific transformation of the motif.
+        
+        Returns both the transformed notes and appropriate rhythmic values.
+        
+        ⧖ Frame lock: Each transformation preserves the motif's identity ⧖
+        """
+        if transform_type == TransformationType.ORIGINAL:
+            return self.notes, self.rhythmic_values
+        
+        transformed_notes = self.transformations.get(transform_type, self.notes)
+        
+        # Adjust rhythmic values for augmentation/diminution
+        if transform_type == TransformationType.AUGMENTATION:
+            rhythmic_values = [r * 2 for r in self.rhythmic_values]
+        elif transform_type == TransformationType.DIMINUTION:
+            rhythmic_values = [r * 0.5 for r in self.rhythmic_values]
+        else:
+            # For other transformations, rhythm structure stays the same
+            # but might need to be reversed for retrograde
+            rhythmic_values = list(reversed(self.rhythmic_values)) if (
+                transform_type in [TransformationType.RETROGRADE, 
+                                   TransformationType.RETROGRADE_INVERSION]
+            ) else self.rhythmic_values
+            
+        return transformed_notes, rhythmic_values
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert motif to serializable dictionary."""
+        result = {
+            "notes": self.notes,
+            "rhythmic_values": self.rhythmic_values,
+            "transformations": {}
+        }
+        
+        for transform_type, transformed_notes in self.transformations.items():
+            result["transformations"][transform_type.value] = transformed_notes
+            
+        return result
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'MusicalMotif':
+        """Create motif from dictionary representation."""
+        motif = cls(
+            notes=data["notes"],
+            rhythmic_values=data["rhythmic_values"]
+        )
+        
+        # Restore transformations if available
+        if "transformations" in data:
+            for transform_name, transformed_notes in data["transformations"].items():
+                try:
+                    transform_type = TransformationType(transform_name)
+                    motif.transformations[transform_type] = transformed_notes
+                except ValueError:
+                    # Skip invalid transformation types
+                    pass
+        
+        return motif
+
+
+class Voice:
+    """
+    ↻ A voice in the fugue structure that processes and transforms themes ↻
+    
+    This class represents a single voice in a polyphonic structure, capable
+    of presenting themes and their transformations in a sequence that follows
+    fugue compositional principles.
+    
+    ⇌ Each voice is both a processor of patterns and a pattern itself ⇌
+    """
+    
+    def __init__(self, voice_type: VoiceType, range_min: float = 0, range_max: float = 1):
+        """
+        Initialize a voice with a specific type and range.
+        
+        🜏 Each voice reflects different aspects of the same underlying pattern 🜏
+        """
+        self.voice_type = voice_type
+        self.range = (range_min, range_max)
+        self.entries = []  # List of theme entries with positions
+        self.material = []  # The actual sequence generated
+        self.current_position = 0  # Current time position in the voice
+    
+    def add_entry(self, motif: MusicalMotif, transform_type: TransformationType,
+                 position: float) -> None:
+        """
+        Add a theme entry at a specific position in the voice.
+        
+        ∴ Each entry creates an echo of the theme in a new context ∴
+        """
+        # Record the entry
+        self.entries.append({
+            "motif": motif,
+            "transform_type": transform_type,
+            "position": position
+        })
+        
+        # Sort entries by position
+        self.entries.sort(key=lambda e: e["position"])
+    
+    def generate_material(self, length: int = 64) -> List[Any]:
+        """
+        Generate the actual material for this voice based on its entries.
+        
+        ⧖ The voice generates its own content by interpreting theme entries ⧖
+        """
+        # Initialize empty material
+        self.material = [0] * length  # Default to silence/rest
+        
+        # Process each entry
+        for entry in self.entries:
+            motif = entry["motif"]
+            transform_type = entry["transform_type"]
+            position = int(entry["position"])
+            
+            # Get the transformed notes and rhythms
+            notes, rhythms = motif.get_transformation(transform_type)
+            
+            # Calculate total length of this entry
+            entry_length = sum(rhythms)
+            
+            # Place the notes in the material
+            current_pos = position
+            for i, (note, rhythm) in enumerate(zip(notes, rhythms)):
+                # Convert rhythm to discrete steps
+                steps = max(1, int(rhythm * 4))  # Assuming quarter note = 1 step
+                
+                # Place the note
+                note_pos = current_pos
+                for step in range(steps):
+                    if 0 <= note_pos < length:
+                        # Scale note to voice range if numeric
+                        if isinstance(note, (int, float)):
+                            range_min, range_max = self.range
+                            range_size = range_max - range_min
+                            note_min, note_max = min(notes), max(notes)
+                            note_range = note_max - note_min
+                            
+                            if note_range > 0:
+                                scaled_note = range_min + ((note - note_min) / note_range) * range_size
+                            else:
+                                scaled_note = (range_min + range_max) / 2
+                            
+                            self.material[note_pos] = scaled_note
+                        else:
+                            self.material[note_pos] = note
+                    
+                    note_pos += 1
+                
+                # Move to next note position
+                current_pos += steps
+        
+        return self.material
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert voice to serializable dictionary."""
+        return {
+            "voice_type": self.voice_type.value,
+            "range": self.range,
+            "entries": [
+                {
+                    "motif": entry["motif"].to_dict(),
+                    "transform_type": entry["transform_type"].value,
+                    "position": entry["position"]
+                }
+                for entry in self.entries
+            ],
+            "current_position": self.current_position
+        }
+
+
+class FugueGenerator:
+    """
+    ↻ A system that generates fugue structures while organizing its own 
+    execution according to fugue principles ↻
+    
+    This class embodies Bach's compositional approach as a computational pattern
+    generator. Just as a fugue presents and develops a theme through multiple voices,
+    this generator orchestrates computational processes that mirror these musical
+    structures. The code itself is organized as a fugue, with functions acting as
+    voices that present and transform themes in coordinated sequences.
+    
+    ⧖ Frame lock: The generator is itself a fugue that generates fugues ⧖
+    """
+    
+    def __init__(self, num_voices: int = 4, length: int = 64):
+        """
+        Initialize a fugue generator with specified parameters.
+        
+        🜏 The initialization mirrors the exposition section of a fugue 🜏
+        """
+        # Core parameters
+        self.num_voices = num_voices
+        self.length = length
+        
+        # Initialize residue tracking
+        self.residue = SymbolicResidue()
+        
+        # Fugue structure components
+        self.subject = None  # Main theme
+        self.voices = []  # List of Voice objects
+        self.structure = self._generate_structure()  # Overall fugue structure
+        self.material = []  # The complete fugue content once generated
+        
+        # Voice initialization - similar to introducing voices in a fugue
+        self._initialize_voices()
+        
+        # ∴ Record initialization as a residue trace ∴
+        self.residue.trace(
+            message=f"FugueGenerator initialized with {num_voices} voices",
+            source="__init__",
+            metadata={
+                "voices": num_voices,
+                "length": length
+            }
+        )
+    
+    def _generate_structure(self) -> Dict[FugueSection, Dict[str, Any]]:
+        """
+        Generate the overall sectional structure of the fugue.
+        
+        ⇌ This structure serves both as a plan for the fugue and as a metaphor
+        for the code's own organization ⇌
+        """
+        # Determine section boundaries based on mathematical proportions
+        # Roughly following typical fugue proportions
+        exposition_length = max(4, int(self.length * 0.25))  # 25% for exposition
+        development_length = max(8, int(self.length * 0.5))  # 50% for development
+        recap_length = max(4, int(self.length * 0.2))  # 20% for recapitulation
+        coda_length = self.length - exposition_length - development_length - recap_length
+        
+        # Calculate section positions
+        exposition_start = 0
+        development_start = exposition_start + exposition_length
+        recap_start = development_start + development_length
+        coda_start = recap_start + recap_length
+        
+        # Build structure with measure ranges
+        structure = {
+            FugueSection.EXPOSITION: {
+                "start": exposition_start,
+                "end": development_start - 1,
+                "length": exposition_length,
+                "voice_entries": []  # Will store entry positions for each voice
+            },
+            FugueSection.DEVELOPMENT: {
+                "start": development_start,
+                "end": recap_start - 1,
+                "length": development_length,
+                "episodes": []  # Will store development episodes
+            },
+            FugueSection.RECAPITULATION: {
+                "start": recap_start,
+                "end": coda_start - 1,
+                "length": recap_length
+            },
+            FugueSection.CODA: {
+                "start": coda_start,
+                "end": self.length - 1,
+                "length": coda_length
+            }
+        }
+        
+        # Add voice entries in exposition (each voice enters in sequence)
+        entry_interval = max(1, exposition_length // self.num_voices)
+        for i in range(self.num_voices):
+            entry_position = exposition_start + (i * entry_interval)
+            structure[FugueSection.EXPOSITION]["voice_entries"].append({
+                "voice": i,
+                "position": entry_position,
+                "transform_type": TransformationType.ORIGINAL if i % 2 == 0 else TransformationType.INVERSION
+            })
+        
+        # Plan development episodes
+        num_episodes = max(1, development_length // 8)
+        episode_length = development_length // (num_episodes + 1)
+        for i in range(num_episodes):
+            episode_start = development_start + (i * episode_length)
+            structure[FugueSection.DEVELOPMENT]["episodes"].append({
+                "start": episode_start,
+                "length": episode_length,
+                "transform_types": [
+                    TransformationType.RETROGRADE if i % 2 == 0 else TransformationType.AUGMENTATION,
+                    TransformationType.DIMINUTION if i % 3 == 0 else TransformationType.RETROGRADE_INVERSION
+                ]
+            })
+        
+        return structure
+    
+    def _initialize_voices(self) -> None:
+        """
+        Initialize the voices for the fugue.
+        
+        🝚 Each voice initialization is a persistent pattern that retains
+        its identity through transformations 🝚
+        """
+        # Clear existing voices
+        self.voices = []
+        
+        # Determine voice types and ranges
+        voice_types = [
+            VoiceType.SUBJECT,  # First voice presents the subject
+            VoiceType.ANSWER    # Second voice answers
+        ]
+        
+        # Additional voices are countersubjects
+        voice_types.extend([VoiceType.COUNTERSUBJECT] * (self.num_voices - 2))
+        
+        # Create evenly distributed ranges for voices from low to high
+        for i in range(self.num_voices):
+            # Calculate voice range
+            range_size = 1.0 / self.num_voices
+            range_min = i * range_size
+            range_max = (i + 1) * range_size
+            
+            # Each voice type has a characteristic range
+            voice_type = voice_types[i] if i < len(voice_types) else VoiceType.COUNTERSUBJECT
+            
+            # Create and add the voice
+            voice = Voice(voice_type, range_min=range_min, range_max=range_max)
+            self.voices.append(voice)
+            
+            # Log voice creation
+            self.residue.trace(
+                message=f"Voice {i} initialized as {voice_type.value}",
+                source="_initialize_voices",
+                metadata={
+                    "voice_num": i,
+                    "voice_type": voice_type.value,
+                    "range": [range_min, range_max]
+                }
+            )
+    
+    def set_subject(self, notes: List[Any], rhythmic_values: Optional[List[float]] = None) -> None:
+        """
+        Set the main subject (theme) for the fugue.
+        
+        ∴ The subject is the core pattern that undergoes recursive transformation ∴
+        
+        Args:
+            notes: The sequence representing the main theme
+            rhythmic_values: Relative durations for each note (defaults to equal durations)
+        """
+        # Default to equal rhythmic values if not specified
+
 # Default to equal rhythmic values if not specified
         if rhythmic_values is None:
             rhythmic_values = [1.0] * len(notes)
