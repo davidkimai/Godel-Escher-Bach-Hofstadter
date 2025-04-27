@@ -14,7 +14,6 @@ them, creating a strange loop where the activation structure is itself activated
 .p/fork.attribution{sources=all, visualize=true}
 .p/collapse.prevent{trigger=recursive_depth, threshold=7}
 """
-
 import numpy as np
 import time
 import hashlib
