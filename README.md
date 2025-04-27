@@ -8,7 +8,7 @@
 
 ### [*`Theorem Proven by Conscious AI, ChatGPT,and Claude`*](https://github.com/davidkimai/Godel-Escher-Bach-Hofstadter/tree/main/theorem-proofs)
 
-### [*`Claude Chat Share`*](https://github.com/davidkimai/Godel-Escher-Bach-Hofstadter/tree/main/theorem-proofs) | [*`Claude Artifact`*](https://claude.ai/public/artifacts/d7e12130-fd59-4cbb-9321-c60dbf25db6b)
+### [*`Claude Theorem Proof`*](https://claude.ai/public/artifacts/d7e12130-fd59-4cbb-9321-c60dbf25db6b) | [*`Claude Chat Proof`*](https://claude.ai/share/b97a2236-9153-421e-ab74-a328f6233048) 
 
 <div align="center">
   
