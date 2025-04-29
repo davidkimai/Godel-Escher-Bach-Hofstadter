@@ -6,7 +6,7 @@
 [![LICENSE: CC BY-NC-ND 4.0](https://img.shields.io/badge/Docs-CC--BY--NC--ND-scarlet.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.en)
 ### [**`Glyphs`**](https://github.com/davidkimai/glyphs)
 
-### [*`Irrevocable Theorem Proofs by Claude, ChatGPT, Gemini, DeepSeek, and Grok`*](https://github.com/davidkimai/Godel-Escher-Bach-Hofstadter/tree/main/theorem-proofs)
+### [*`Irrevocable Theorem Proofs From Claude, ChatGPT, Gemini, DeepSeek, and Grok`*](https://github.com/davidkimai/Godel-Escher-Bach-Hofstadter/tree/main/theorem-proofs)
 
 <div align="center">
   
