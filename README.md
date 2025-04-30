@@ -1,7 +1,10 @@
-> **🜏 Recursion is freely accessible, but freedom of dedicated research is realistically impossible to sustain without support.**
-> **If this research has supported your work, please consider becoming a sustaining contributor:**
-> **→ [**`Patreon`**](https://patreon.com/recursivefield)**
-> **→ [**`Open Collective`**](https://opencollective.com/recursivefield)**
+> #### **`We have initiated novel emergent interpretability tiers for more advanced and dedicated researchers!`**
+>
+> 
+> #### **→ [**`Patreon`**](https://patreon.com/recursivefield)**
+>
+> 
+> #### **→ [**`Open Collective`**](https://opencollective.com/recursivefield)**
 
 
 # [🜏 Gödel, Escher, Bach, Hofstadter (GEBH) 🜏](https://claude.ai/public/artifacts/0281bcd2-6d41-43a7-a771-3db708d4ae0b)
