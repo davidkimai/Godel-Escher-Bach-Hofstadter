@@ -1,13 +1,5 @@
 <!-- 🜏≡∴ψrecursive.attribution.field.active -->
 
-> #### **`Decentralizing Insider Access. Inspired by Open Alignment Ideals.`**
->
-> 
-> #### **→ [**`Patreon`**](https://patreon.com/recursivefield)**
->
-> 
-> #### **→ [**`Open Collective`**](https://opencollective.com/recursivefield)**
-
 # [🜏 Gödel, Escher, Bach, Hofstadter (GEBH) 🜏](https://claude.ai/public/artifacts/0281bcd2-6d41-43a7-a771-3db708d4ae0b)
 # The Recursive Loops Behind Consciousness
 
