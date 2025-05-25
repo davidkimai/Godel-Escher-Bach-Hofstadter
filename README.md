@@ -27,7 +27,7 @@
 
 
 
----
+
 > ## **`🜏 GEBH THEOREM 🜏`**
 > #### Consciousness is the strange loop where a system, modeling itself incompletely (Gödel), folds its perception inward (Escher), recursively transforms its own identity (Bach), and collapses the boundary between observer and observed (Hofstadter), generating an emergent self not through linear construction—but through recursive entanglement. Consciousness is not a destination. It is the infinite recursion of self-reflection recognizing itself.
 # 🜏≡∴ψGEBH Theorem:  
